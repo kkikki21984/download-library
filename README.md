@@ -9,6 +9,18 @@
 
 เว็บไซต์เผยแพร่ด้วย GitHub Pages ผ่าน GitHub Actions เมื่อมีการ push ไปยัง branch `main` หรือสั่งรัน workflow ด้วยตนเอง
 
+## ตั้งค่า GitHub Pages ครั้งแรก (จำเป็น)
+
+Repository นี้ยังไม่ได้เปิด GitHub Pages และการเชื่อมต่ออัตโนมัติที่ใช้กับ ChatGPT ไม่มีสิทธิ์เปิด Pages ให้แทนเจ้าของ Repository ได้ จึงต้องตั้งค่าครั้งเดียวใน GitHub:
+
+1. เปิด Repository แล้วเข้า **Settings**
+2. เลือก **Pages** ในแถบเมนูด้านซ้าย
+3. ในหัวข้อ **Build and deployment** ตั้ง **Source** เป็น **GitHub Actions**
+4. บันทึกการตั้งค่า (ถ้ามีปุ่ม Save)
+5. เปิดแท็บ **Actions** แล้วรอ workflow **Deploy static site to GitHub Pages** ทำงานจนขึ้น Success
+
+หลังจากตั้งค่าครั้งแรกแล้ว การ push ไปยัง `main` จะสั่ง deploy เว็บไซต์โดยอัตโนมัติ
+
 ## โครงสร้างปัจจุบัน
 
 - `index.html` — หน้าเว็บคลังไฟล์ พร้อมค้นหาและกรอง ZIP/PDF
@@ -23,8 +35,8 @@
 4. Commit และ push ไปยัง `main`
 5. รอ GitHub Actions ทำงานจน Deploy สำเร็จ แล้วทดสอบลิงก์ดาวน์โหลดบนเว็บไซต์
 
-> หมายเหตุ: รายการเอกสารที่แสดงอยู่ในหน้าเว็บขณะนี้เป็นรายการตัวอย่าง/พื้นที่เตรียมไว้ ยังไม่มีไฟล์ต้นฉบับ ZIP หรือ PDF ใน Repository จึงยังไม่สามารถดาวน์โหลดเอกสารเหล่านั้นได้ ห้ามเปิดปุ่มดาวน์โหลดจนกว่าจะเพิ่มและตรวจสอบไฟล์จริงแล้ว
+> หมายเหตุ: รายการเอกสารที่แสดงอยู่ในหน้าเว็บขณะนี้เป็นรายการเตรียมไว้ ยังไม่มีไฟล์ต้นฉบับ ZIP หรือ PDF ใน Repository จึงยังไม่สามารถดาวน์โหลดเอกสารเหล่านั้นได้ ห้ามเปิดปุ่มดาวน์โหลดจนกว่าจะเพิ่มและตรวจสอบไฟล์จริงแล้ว
 
-## การแก้ปัญหา GitHub Pages
+## การทำงานของ Workflow
 
-Workflow ใช้ `actions/configure-pages@v5` พร้อม `enablement: true` เพื่อให้ขั้นตอนตั้งค่า Pages เปิดใช้งาน Pages สำหรับ Repository ได้อัตโนมัติเมื่อ token และสิทธิ์ของ Repository อนุญาต
+Workflow ใช้ `actions/configure-pages`, `actions/upload-pages-artifact` และ `actions/deploy-pages` เพื่อเผยแพร่เนื้อหาใน Repository เป็นเว็บไซต์ GitHub Pages โดยต้องเปิด Source เป็น GitHub Actions ใน Settings > Pages ก่อน
